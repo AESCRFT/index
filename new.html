@@ -19,12 +19,66 @@
     <label for="photo">Upload Photo:</label>
     <input type="file" id="photo" name="photo" accept="image/*" required><br><br>
 
-    <img id="preview" src="" alt="Image Preview" style="display:none; max-width: 200px; margin-top: 10px;"><br>
+    <h3>Attributes</h3>
+    <table>
+        <tr>
+            <th>Attribute</th>
+            <th>Value</th>
+        </tr>
+        <tr>
+            <td>Strength</td>
+            <td>
+                ${generateRadioOptions("strength", 1, 20)}
+            </td>
+        </tr>
+        <tr>
+            <td>Intelligence</td>
+            <td>
+                ${generateRadioOptions("intelligence", 1, 20)}
+            </td>
+        </tr>
+        <tr>
+            <td>Charisma</td>
+            <td>
+                ${generateRadioOptions("charisma", 1, 20)}
+            </td>
+        </tr>
+        <tr>
+            <td>Agility</td>
+            <td>
+                ${generateRadioOptions("agility", 1, 20)}
+            </td>
+        </tr>
+        <tr>
+            <td>Precision</td>
+            <td>
+                ${generateRadioOptions("precision", 1, 20)}
+            </td>
+        </tr>
+        <tr>
+            <td>HP</td>
+            <td>
+                ${generateRadioOptions("hp", 0, 5)}
+            </td>
+        </tr>
+    </table><br>
 
     <button type="submit">Submit</button>
 </form>
 
 <script>
+function generateRadioOptions(name, min, max) {
+    let options = '';
+    for (let i = min; i <= max; i++) {
+        options += `
+            <label>
+                <input type="radio" name="${name}" value="${i}" required> ${i}
+            </label><br>
+        `;
+    }
+    return options;
+}
+
 document.getElementById("myForm").addEventListener("submit", function(event) {
     event.preventDefault(); // Prevent the default form submission
 
@@ -35,25 +89,14 @@ document.getElementById("myForm").addEventListener("submit", function(event) {
     const backstory = document.getElementById("backstory").value;
     const photo = document.getElementById("photo").files[0];
 
-    // Alert the values for now (excluding the photo)
-    alert(`Name: ${name}\nGender: ${gender}\nAbout: ${about}\nBackstory: ${backstory}`);
+    const strength = document.querySelector('input[name="strength"]:checked')?.value;
+    const intelligence = document.querySelector('input[name="intelligence"]:checked')?.value;
+    const charisma = document.querySelector('input[name="charisma"]:checked')?.value;
+    const agility = document.querySelector('input[name="agility"]:checked')?.value;
+    const precision = document.querySelector('input[name="precision"]:checked')?.value;
+    const hp = document.querySelector('input[name="hp"]:checked')?.value;
 
-    // Here, you would typically upload the photo to a server
-});
-
-// Preview image
-document.getElementById("photo").addEventListener("change", function(event) {
-    const file = event.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const preview = document.getElementById("preview");
-            preview.src = e.target.result; // Set the image source to the uploaded file
-            preview.style.display = "block"; // Show the image
-        }
-        reader.readAsDataURL(file); // Convert the file to a data URL
-    }
+    // Alert the values for now
+    alert(`Name: ${name}\nGender: ${gender}\nAbout: ${about}\nBackstory: ${backstory}\nStrength: ${strength}\nIntelligence: ${intelligence}\nCharisma: ${charisma}\nAgility: ${agility}\nPrecision: ${precision}\nHP: ${hp}`);
 });
 </script>
-
-
