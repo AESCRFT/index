@@ -16,6 +16,11 @@
     <label for="backstory">Backstory:</label>
     <textarea id="backstory" name="backstory" rows="4" required></textarea><br><br>
 
+    <label for="photo">Upload Photo:</label>
+    <input type="file" id="photo" name="photo" accept="image/*" required><br><br>
+
+    <img id="preview" src="" alt="Image Preview" style="display:none; max-width: 200px; margin-top: 10px;"><br>
+
     <button type="submit">Submit</button>
 </form>
 
@@ -28,9 +33,27 @@ document.getElementById("myForm").addEventListener("submit", function(event) {
     const gender = document.getElementById("gender").value;
     const about = document.getElementById("about").value;
     const backstory = document.getElementById("backstory").value;
+    const photo = document.getElementById("photo").files[0];
 
-    // Alert the values for now
+    // Alert the values for now (excluding the photo)
     alert(`Name: ${name}\nGender: ${gender}\nAbout: ${about}\nBackstory: ${backstory}`);
+
+    // Here, you would typically upload the photo to a server
+});
+
+// Preview image
+document.getElementById("photo").addEventListener("change", function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const preview = document.getElementById("preview");
+            preview.src = e.target.result; // Set the image source to the uploaded file
+            preview.style.display = "block"; // Show the image
+        }
+        reader.readAsDataURL(file); // Convert the file to a data URL
+    }
 });
 </script>
+
 
