@@ -1,102 +1,126 @@
-<form id="myForm">
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" required><br><br>
+<html>
+<head>
+    <title>Character Creation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input[type="text"], select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="file"] {
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            text-align: left;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        input[type="range"] {
+            width: 100%;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <form>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
 
-    <label for="gender">Gender:</label>
-    <select id="gender" name="gender" required>
-        <option value="">Select Gender</option>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-        <option value="other">Other</option>
-    </select><br><br>
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender">
+            <option value="select">Select Gender</option>
+        </select>
 
-    <label for="about">About:</label>
-    <textarea id="about" name="about" rows="4" required></textarea><br><br>
+        <label for="about">About:</label>
+        <textarea id="about" name="about" rows="4"></textarea>
 
-    <label for="backstory">Backstory:</label>
-    <textarea id="backstory" name="backstory" rows="4" required></textarea><br><br>
+        <label for="backstory">Backstory:</label>
+        <textarea id="backstory" name="backstory" rows="4"></textarea>
 
-    <label for="photo">Upload Photo:</label>
-    <input type="file" id="photo" name="photo" accept="image/*" required><br><br>
+        <label for="photo">Upload Photo:</label>
+        <input type="file" id="photo" name="photo">
 
-    <h3>Attributes</h3>
-    <table>
-        <tr>
-            <th>Attribute</th>
-            <th>Value</th>
-        </tr>
-        <tr>
-            <td>Strength</td>
-            <td>
-                ${generateRadioOptions("strength", 1, 20)}
-            </td>
-        </tr>
-        <tr>
-            <td>Intelligence</td>
-            <td>
-                ${generateRadioOptions("intelligence", 1, 20)}
-            </td>
-        </tr>
-        <tr>
-            <td>Charisma</td>
-            <td>
-                ${generateRadioOptions("charisma", 1, 20)}
-            </td>
-        </tr>
-        <tr>
-            <td>Agility</td>
-            <td>
-                ${generateRadioOptions("agility", 1, 20)}
-            </td>
-        </tr>
-        <tr>
-            <td>Precision</td>
-            <td>
-                ${generateRadioOptions("precision", 1, 20)}
-            </td>
-        </tr>
-        <tr>
-            <td>HP</td>
-            <td>
-                ${generateRadioOptions("hp", 0, 5)}
-            </td>
-        </tr>
-    </table><br>
+        <h2>Attributes</h2>
+        <table>
+            <tr>
+                <th>Attribute</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <td>Strength</td>
+                <td>
+                    <input type="range" id="strength" name="strength" min="1" max="20" value="10" oninput="document.getElementById('strengthValue').innerText = this.value">
+                    <span id="strengthValue">10</span>
+                </td>
+            </tr>
+            <tr>
+                <td>Intelligence</td>
+                <td>
+                    <input type="range" id="intelligence" name="intelligence" min="1" max="20" value="10" oninput="document.getElementById('intelligenceValue').innerText = this.value">
+                    <span id="intelligenceValue">10</span>
+                </td>
+            </tr>
+            <tr>
+                <td>Charisma</td>
+                <td>
+                    <input type="range" id="charisma" name="charisma" min="1" max="20" value="10" oninput="document.getElementById('charismaValue').innerText = this.value">
+                    <span id="charismaValue">10</span>
+                </td>
+            </tr>
+            <tr>
+                <td>Agility</td>
+                <td>
+                    <input type="range" id="agility" name="agility" min="1" max="20" value="10" oninput="document.getElementById('agilityValue').innerText = this.value">
+                    <span id="agilityValue">10</span>
+                </td>
+            </tr>
+            <tr>
+                <td>Precision</td>
+                <td>
+                    <input type="range" id="precision" name="precision" min="1" max="20" value="10" oninput="document.getElementById('precisionValue').innerText = this.value">
+                    <span id="precisionValue">10</span>
+                </td>
+            </tr>
+            <tr>
+                <td>HP</td>
+                <td>
+                    <input type="range" id="hp" name="hp" min="0" max="5" value="2" oninput="document.getElementById('hpValue').innerText = this.value">
+                    <span id="hpValue">2</span>
+                </td>
+            </tr>
+        </table>
 
-    <button type="submit">Submit</button>
-</form>
-
-<script>
-function generateRadioOptions(name, min, max) {
-    let options = '';
-    for (let i = min; i <= max; i++) {
-        options += `
-            <label>
-                <input type="radio" name="${name}" value="${i}" required> ${i}
-            </label><br>
-        `;
-    }
-    return options;
-}
-
-document.getElementById("myForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // Prevent the default form submission
-
-    // Get input values
-    const name = document.getElementById("name").value;
-    const gender = document.getElementById("gender").value;
-    const about = document.getElementById("about").value;
-    const backstory = document.getElementById("backstory").value;
-    const photo = document.getElementById("photo").files[0];
-
-    const strength = document.querySelector('input[name="strength"]:checked')?.value;
-    const intelligence = document.querySelector('input[name="intelligence"]:checked')?.value;
-    const charisma = document.querySelector('input[name="charisma"]:checked')?.value;
-    const agility = document.querySelector('input[name="agility"]:checked')?.value;
-    const precision = document.querySelector('input[name="precision"]:checked')?.value;
-    const hp = document.querySelector('input[name="hp"]:checked')?.value;
-
-    // Alert the values for now
-    alert(`Name: ${name}\nGender: ${gender}\nAbout: ${about}\nBackstory: ${backstory}\nStrength: ${strength}\nIntelligence: ${intelligence}\nCharisma: ${charisma}\nAgility: ${agility}\nPrecision: ${precision}\nHP: ${hp}`);
-});
-</script>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
