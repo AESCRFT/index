@@ -1,0 +1,173 @@
+<!DOCTYPE html> 
+
+<html lang="en"> 
+
+<head> 
+
+    <meta charset="UTF-8"> 
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+
+    <title>Contact Us - Be MODEST</title> 
+
+    <style> 
+
+        body { 
+
+            font-family: Arial, sans-serif; 
+
+            text-align: center; 
+
+            margin: 0; 
+
+            padding: 50px; 
+
+            background-color: #f4f4f4; 
+
+        } 
+
+        form { 
+
+            display: inline-block; 
+
+            text-align: left; 
+
+            background-color: #fff; 
+
+            padding: 20px; 
+
+            border-radius: 10px; 
+
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+
+        } 
+
+        input, button { 
+
+            display: block; 
+
+            width: 100%; 
+
+            margin-bottom: 10px; 
+
+            padding: 10px; 
+
+        } 
+
+        button { 
+
+            background-color: #4e44a7; 
+
+            color: white; 
+
+            border: none; 
+
+            border-radius: 5px; 
+
+        } 
+
+    </style> 
+
+    <!-- Firebase SDK --> 
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script> 
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-database.js"></script> 
+
+    <script> 
+
+        // Firebase configuration copied from Firebase Console 
+
+        var firebaseConfig = { 
+
+            apiKey: "AIzaSyDZdF0taZ4jAsrmtpB1NPgquPYiMmwO1EM", 
+
+            authDomain: "sortinator-929f7.firebaseapp.com", 
+            
+            databaseURL: "https://sortinator0-default-rtdb.firebaseio.com", 
+
+            projectId:"sortinator-929f7" , 
+
+            storageBucket: "sortinator0.appspot.com", 
+
+            messagingSenderId: "913894582198", 
+
+            appId: "1:913894582198:web:461a6b1ef2af075838c317" 
+
+        }; 
+
+ 
+
+        // Initialize Firebase 
+
+        firebase.initializeApp(firebaseConfig); 
+
+ 
+
+        // Reference to the Realtime Database 
+
+        var database = firebase.database(); 
+
+         
+
+        // Function to submit data to Firebase 
+
+        function submitContactForm(event) { 
+
+            event.preventDefault(); // Prevent the form from refreshing the page 
+
+            var name = document.getElementById("name").value; 
+
+            var email = document.getElementById("email").value; 
+
+ 
+
+            // Save data to Firebase 
+
+            database.ref('contacts').push({ 
+
+                name: name, 
+
+                email: email 
+
+            }).then(function() { 
+
+                alert("Thank you for submitting!"); 
+
+            }).catch(function(error) { 
+
+                alert("Error: " + error.message); 
+
+            }); 
+
+ 
+
+            // Clear the form fields 
+
+            document.getElementById("contactForm").reset(); 
+
+        } 
+
+    </script> 
+
+</head> 
+
+<body> 
+
+    <h1>Contact Us</h1> 
+
+    <form id="contactForm" onsubmit="submitContactForm(event)"> 
+
+        <input type="text" id="name" name="name" placeholder="Your Name" required> 
+
+        <input type="email" id="email" name="email" placeholder="Your Email" required> 
+
+        <button type="submit">Submit</button> 
+
+    </form> 
+
+    <a href="index.html">Back to Home</a> 
+
+</body> 
+
+</html> 
