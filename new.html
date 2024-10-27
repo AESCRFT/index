@@ -11,7 +11,7 @@
             margin-top: 10px;
             font-weight: bold;
         }
-        input[type="text"], textarea {
+        input[type="text"], input[type="number"], textarea {
             width: 100%;
             padding: 10px;
             margin-top: 5px;
@@ -57,7 +57,56 @@
             flex: 1;
             margin-right: 10px;
         }
+        .save-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .save-button:hover {
+            background-color: #45a049;
+        }
     </style>
+    <script>
+        function updateValue(slider, span) {
+            span.textContent = slider.value;
+        }
+
+        function saveInputs() {
+            const name = document.getElementById('name').value;
+            const gender = document.querySelector('input[name="gender"]:checked') ? document.querySelector('input[name="gender"]:checked').value : '';
+            const age = document.getElementById('age').value;
+            const height = document.getElementById('height').value;
+            const about = document.getElementById('about').value;
+            const backstory = document.getElementById('backstory').value;
+            const photo = document.getElementById('photo').files[0];
+            const attributes = {
+                strength: document.getElementById('strength-value').textContent,
+                intelligence: document.getElementById('intelligence-value').textContent,
+                charisma: document.getElementById('charisma-value').textContent,
+                agility: document.getElementById('agility-value').textContent,
+                precision: document.getElementById('precision-value').textContent
+            };
+
+            const characterData = {
+                name,
+                gender,
+                age,
+                height,
+                about,
+                backstory,
+                photo,
+                attributes
+            };
+
+            console.log('Character Data:', characterData);
+            alert('Character data saved! Check the console for details.');
+        }
+    </script>
 </head>
 <body>
     <h1>Character Creation</h1>
@@ -71,6 +120,12 @@
             <label><input type="radio" name="gender" value="female"> Female</label>
             <label><input type="radio" name="gender" value="other"> Other</label>
         </div>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" min="0">
+
+        <label for="height">Height:</label>
+        <input type="number" id="height" name="height" min="0">
 
         <label for="about">About:</label>
         <textarea id="about" name="about" rows="4"></textarea>
@@ -96,8 +151,8 @@
                     <td>Strength</td>
                     <td>
                         <div class="slider-container">
-                            <input type="range" min="0" max="20" value="10">
-                            <span>10</span>
+                            <input type="range" min="0" max="20" value="10" oninput="updateValue(this, document.getElementById('strength-value'))">
+                            <span id="strength-value">10</span>
                         </div>
                     </td>
                 </tr>
@@ -105,8 +160,8 @@
                     <td>Intelligence</td>
                     <td>
                         <div class="slider-container">
-                            <input type="range" min="0" max="20" value="10">
-                            <span>10</span>
+                            <input type="range" min="0" max="20" value="10" oninput="updateValue(this, document.getElementById('intelligence-value'))">
+                            <span id="intelligence-value">10</span>
                         </div>
                     </td>
                 </tr>
@@ -114,8 +169,8 @@
                     <td>Charisma</td>
                     <td>
                         <div class="slider-container">
-                            <input type="range" min="0" max="20" value="10">
-                            <span>10</span>
+                            <input type="range" min="0" max="20" value="10" oninput="updateValue(this, document.getElementById('charisma-value'))">
+                            <span id="charisma-value">10</span>
                         </div>
                     </td>
                 </tr>
@@ -123,13 +178,24 @@
                     <td>Agility</td>
                     <td>
                         <div class="slider-container">
-                            <input type="range" min="0" max="20" value="10">
-                            <span>10</span>
+                            <input type="range" min="0" max="20" value="10" oninput="updateValue(this, document.getElementById('agility-value'))">
+                            <span id="agility-value">10</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Precision</td>
+                    <td>
+                        <div class="slider-container">
+                            <input type="range" min="0" max="20" value="10" oninput="updateValue(this, document.getElementById('precision-value'))">
+                            <span id="precision-value">10</span>
                         </div>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
+
+    <button class="save-button" onclick="saveInputs()">Save</button>
 </body>
 </html>
