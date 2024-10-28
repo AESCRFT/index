@@ -1,206 +1,173 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Character Creation</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        label {
-            display: block;
-            margin-top: 10px;
-            font-weight: bold;
-        }
-        input[type="text"], input[type="number"], textarea {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            margin-bottom: 10px;
-            border: 1px solid #000;
-            border-radius: 4px;
-        }
-        .gender-options {
-            display: flex;
-            align-items: center;
-            margin-top: 5px;
-            margin-bottom: 10px;
-        }
-        .gender-options label {
-            margin-right: 20px;
-            font-weight: normal;
-        }
-        .attributes {
-            margin-top: 20px;
-        }
-        .attributes table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .attributes th, .attributes td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        .attributes th {
-            background-color: #f2f2f2;
-            font-weight: bold;
-        }
-        .slider-container {
-            display: flex;
-            align-items: center;
-        }
-        .slider-container input[type="range"] {
-            flex: 1;
-            margin-right: 10px;
-        }
-        .save-button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .save-button:hover {
-            background-color: #45a049;
-        }
-    </style>
-    <script>
-        function updateValue(slider, span) {
-            span.textContent = slider.value;
-        }
+<!DOCTYPE html> 
 
-        function saveInputs() {
-            const name = document.getElementById('name').value;
-            const gender = document.querySelector('input[name="gender"]:checked') ? document.querySelector('input[name="gender"]:checked').value : '';
-            const age = document.getElementById('age').value;
-            const height = document.getElementById('height').value;
-            const about = document.getElementById('about').value;
-            const backstory = document.getElementById('backstory').value;
-            const attributes = {
-                strength: document.getElementById('strength-value').textContent,
-                intelligence: document.getElementById('intelligence-value').textContent,
-                charisma: document.getElementById('charisma-value').textContent,
-                agility: document.getElementById('agility-value').textContent,
-                precision: document.getElementById('precision-value').textContent
-            };
+<html lang="en"> 
 
-            const characterData = `
-Name: ${name}
-Gender: ${gender}
-Age: ${age}
-Height: ${height}
-About: ${about}
-Backstory: ${backstory}
-Attributes:
-  Strength: ${attributes.strength}
-  Intelligence: ${attributes.intelligence}
-  Charisma: ${attributes.charisma}
-  Agility: ${attributes.agility}
-  Precision: ${attributes.precision}
-`;
+<head> 
 
-            // Create a blob and a link to download
-            const blob = new Blob([characterData], { type: 'text/plain' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = 'character.txt';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-    </script>
-</head>
-<body>
-    <h1>Character Creation</h1>
-    <form enctype="multipart/form-data">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
+    <meta charset="UTF-8"> 
 
-        <label for="gender">Gender:</label>
-        <div class="gender-options">
-            <label><input type="radio" name="gender" value="male" required> Male</label>
-            <label><input type="radio" name="gender" value="female"> Female</label>
-            <label><input type="radio" name="gender" value="other"> Other</label>
-        </div>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 
-        <label for="age">Age:</label>
-        <input type="number" id="age" name="age" min="0" required>
+    <title>Contact Us - Be MODEST</title> 
 
-        <label for="height">Height:</label>
-        <input type="number" id="height" name="height" min="0" required>
+    <style> 
 
-        <label for="about">About:</label>
-        <textarea id="about" name="about" rows="4"></textarea>
+        body { 
 
-        <label for="backstory">Backstory:</label>
-        <textarea id="backstory" name="backstory" rows="4"></textarea>
-    </form>
+            font-family: Arial, sans-serif; 
 
-    <div class="attributes">
-        <h2>Attributes</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Attribute</th>
-                    <th>Value</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Strength</td>
-                    <td>
-                        <div class="slider-container">
-                            <input type="range" min="0" max="20" value="10" oninput="updateValue(this, document.getElementById('strength-value'))">
-                            <span id="strength-value">10</span>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Intelligence</td>
-                    <td>
-                        <div class="slider-container">
-                            <input type="range" min="0" max="20" value="10" oninput="updateValue(this, document.getElementById('intelligence-value'))">
-                            <span id="intelligence-value">10</span>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Charisma</td>
-                    <td>
-                        <div class="slider-container">
-                            <input type="range" min="0" max="20" value="10" oninput="updateValue(this, document.getElementById('charisma-value'))">
-                            <span id="charisma-value">10</span>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Agility</td>
-                    <td>
-                        <div class="slider-container">
-                            <input type="range" min="0" max="20" value="10" oninput="updateValue(this, document.getElementById('agility-value'))">
-                            <span id="agility-value">10</span>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Precision</td>
-                    <td>
-                        <div class="slider-container">
-                            <input type="range" min="0" max="20" value="10" oninput="updateValue(this, document.getElementById('precision-value'))">
-                            <span id="precision-value">10</span>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+            text-align: center; 
 
-    <button class="save-button" type="button" onclick="saveInputs()">Save</button>
-</body>
-</html>
+            margin: 0; 
+
+            padding: 50px; 
+
+            background-color: #f4f4f4; 
+
+        } 
+
+        form { 
+
+            display: inline-block; 
+
+            text-align: left; 
+
+            background-color: #fff; 
+
+            padding: 20px; 
+
+            border-radius: 10px; 
+
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+
+        } 
+
+        input, button { 
+
+            display: block; 
+
+            width: 100%; 
+
+            margin-bottom: 10px; 
+
+            padding: 10px; 
+
+        } 
+
+        button { 
+
+            background-color: #4e44a7; 
+
+            color: white; 
+
+            border: none; 
+
+            border-radius: 5px; 
+
+        } 
+
+    </style> 
+
+    <!-- Firebase SDK --> 
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script> 
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-database.js"></script> 
+
+    <script> 
+
+        // Firebase configuration copied from Firebase Console 
+
+        var firebaseConfig = { 
+
+            apiKey: "AIzaSyDZdF0taZ4jAsrmtpB1NPgquPYiMmwO1EM", 
+
+            authDomain: "sortinator-929f7.firebaseapp.com", 
+            
+            databaseURL: "https://sortinator0-default-rtdb.firebaseio.com", 
+
+            projectId:"sortinator-929f7" , 
+
+            storageBucket: "sortinator0.appspot.com", 
+
+            messagingSenderId: "913894582198", 
+
+            appId: "1:913894582198:web:461a6b1ef2af075838c317" 
+
+        }; 
+
+ 
+
+        // Initialize Firebase 
+
+        firebase.initializeApp(firebaseConfig); 
+
+ 
+
+        // Reference to the Realtime Database 
+
+        var database = firebase.database(); 
+
+         
+
+        // Function to submit data to Firebase 
+
+        function submitContactForm(event) { 
+
+            event.preventDefault(); // Prevent the form from refreshing the page 
+
+            var name = document.getElementById("name").value; 
+
+            var email = document.getElementById("email").value; 
+
+ 
+
+            // Save data to Firebase 
+
+            database.ref('contacts').push({ 
+
+                name: name, 
+
+                email: email 
+
+            }).then(function() { 
+
+                alert("Thank you for submitting!"); 
+
+            }).catch(function(error) { 
+
+                alert("Error: " + error.message); 
+
+            }); 
+
+ 
+
+            // Clear the form fields 
+
+            document.getElementById("contactForm").reset(); 
+
+        } 
+
+    </script> 
+
+</head> 
+
+<body> 
+
+    <h1>Contact Us</h1> 
+
+    <form id="contactForm" onsubmit="submitContactForm(event)"> 
+
+        <input type="text" id="name" name="name" placeholder="Your Name" required> 
+
+        <input type="email" id="email" name="email" placeholder="Your Email" required> 
+
+        <button type="submit">Submit</button> 
+
+    </form> 
+
+    <a href="index.html">Back to Home</a> 
+
+</body> 
+
+</html> 
