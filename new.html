@@ -8,6 +8,7 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
+            background-color: rgb(16, 105, 141); /* Set background color to cyan */
         }
         label {
             display: block;
@@ -42,7 +43,7 @@
         .attributes th, .attributes td {
             padding: 10px;
             text-align: left;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #fafbfb;
         }
         .attributes th {
             background-color: #f2f2f2;
@@ -82,51 +83,6 @@
             background-color: #e53935;
         }
     </style>
-    <script>
-        function updateValue(slider, span) {
-            span.textContent = slider.value;
-        }
-
-        function saveInputs() {
-            const name = document.getElementById('name').value;
-            const gender = document.querySelector('input[name="gender"]:checked') ? document.querySelector('input[name="gender"]:checked').value : '';
-            const age = document.getElementById('age').value;
-            const height = document.getElementById('height').value;
-            const about = document.getElementById('about').value;
-            const backstory = document.getElementById('backstory').value;
-            const attributes = {
-                strength: document.getElementById('strength-value').textContent,
-                intelligence: document.getElementById('intelligence-value').textContent,
-                charisma: document.getElementById('charisma-value').textContent,
-                agility: document.getElementById('agility-value').textContent,
-                precision: document.getElementById('precision-value').textContent
-            };
-
-            const characterData = `
-Name: ${name}
-Gender: ${gender}
-Age: ${age}
-Height: ${height}
-About: ${about}
-Backstory: ${backstory}
-Attributes:
-  Strength: ${attributes.strength}
-  Intelligence: ${attributes.intelligence}
-  Charisma: ${attributes.charisma}
-  Agility: ${attributes.agility}
-  Precision: ${attributes.precision}
-`;
-
-            // Create a blob and a link to download
-            const blob = new Blob([characterData], { type: 'text/plain' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = 'character.txt';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-    </script>
 </head>
 <body>
     <h1>Character Creation</h1>
